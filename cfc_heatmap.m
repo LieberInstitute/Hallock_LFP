@@ -55,7 +55,7 @@ for phasei = 1:length(phase_lowpass)
             [data] = makedatafile_morlet(signal_data);
         end
     
-    [M] = modindex(data,'n',phase_bins);
+    [M] = modindex(data,0,phase_bins);
     
     heatmap(phasei,poweri) = M.MI;
     
