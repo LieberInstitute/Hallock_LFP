@@ -1,4 +1,4 @@
-function [M] = modindex(data,disp,N)
+function [M] = modindex(data,nbins,plot)
 
 %   This function calculates the degree of phase-amplitude coupling between 
 %   two filtered signals by using the Kullback-Leibler distance between an 
@@ -27,39 +27,39 @@ function [M] = modindex(data,disp,N)
 %%
 
 if nargin < 2
-   N = 18;
+   nbins = 18;
 end
 
-PhaseBins = 0 : 360/N : 360-(360/N);
+PhaseBins = 0 : 360/nbins : 360-(360/nbins);
 
-for k = 1:N
-        index = find (data.Xt_phase >= PhaseBins(k) & data.Xt_phase < PhaseBins(k)+(360/N)); %Finds all points where phase falls within a given bin
+for k = 1:nbins
+        index = find (data.Xt_phase >= PhaseBins(k) & data.Xt_phase < PhaseBins(k)+(360/nbins)); %Finds all points where phase falls within a given bin
         Bin(k).amp = mean(data.Xg_env(index));
 end
 
 S = sum([Bin.amp]);
 
-for k = 1:N
+for k = 1:nbins
         Bin(k).NormAmp = Bin(k).amp / S;  %Normalized amplitude distribution
 end
 
-U(1:N) = 1/N;
+U(1:nbins) = 1/nbins;
 P = [Bin.NormAmp];
 KLdist = sum (P.*(log(P./U)));  %Kullback-Leibler distance
                                 %D(P,U)= sum [ P(j) * log(P(j)/U(j)) ]
                                 %for each bin of distribution
 [Y,I] = max(P);
 
-M.MI=KLdist/log(N);             %Modulation Index (MI) = KL distance divided by the log of the number of bins
+M.MI=KLdist/log(nbins);             %Modulation Index (MI) = KL distance divided by the log of the number of bins
 M.amp = [Bin.amp];
 M.NormAmp = P;
-M.PhaseAxis = 360/N/2 : 360/N : 360-(360/N/2);
+M.PhaseAxis = 360/nbins/2 : 360/nbins : 360-(360/nbins/2);
 M.phase = PhaseBins(I);         %Theta phase with highest gamma amplitude
 
 
 %Generate plot of normalized gamma amplitude as a function of phase (two full cycles)
 
-if disp == 'y'
+if plot == 1
     figure1=figure;
     axes1 = axes('Parent',figure1,'YTick',[0 0.02 0.04 0.06 0.08],'XTick',[0 180 360 540 720]);
     xlim(axes1, [0 720]);
