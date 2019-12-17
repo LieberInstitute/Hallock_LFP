@@ -26,7 +26,7 @@ function [heatmap, heatmap_smooth] = cfc_heatmap(signal_data, phase_bins, amplit
 %   amplitude_freq_bins:    Number of co-modulogram bins for amplitude
 %                           values
 %   phase_freq_bins:        Number of co-modulogram bins for phase values
-%   plot:                   0 if plot, 1 if no plot
+%   plot:                   1 if plot, 0 if no plot
 
 %Output:
 %   heatmap:          Co-modulogram of MI values across phase and amplitude
@@ -72,7 +72,7 @@ f = f./sum(f(:));
 heatmap_smooth = conv2(heatmap,f,'same');
 
 % Plot the co-modulogram
-if plot == 0
+if plot == 1
 figure ()
 pcolor(phase_highpass,amplitude_highpass,heatmap_smooth')
 shading interp
