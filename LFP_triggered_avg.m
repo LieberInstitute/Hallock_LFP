@@ -28,7 +28,7 @@ function [LFP_triggered_plot, LFP_triggered_sem] = LFP_triggered_avg(trigger_sam
 %                                   averages
 %                                   If 1: Calculates trough-triggered
 %                                   averages
-%       plot:                       0 if plot, 1 if no plot
+%       plot:                       1 if plot, 0 if no plot
 
 %   Outputs:
 %       LFP_triggered_plot:         LFP-triggered average LFP values
@@ -83,7 +83,7 @@ LFP_triggered_sem = LFP_triggered_std/sqrt(size(triggered_avg,1));
 times = linspace(edges(1,1),edges(1,2),size(LFP_triggered_plot,2));
 
 % Plot LFP-triggered average and standard error
-if plot == 0
+if plot == 1
 figure()
 varargout=shadedErrorBar(times,LFP_triggered_plot,LFP_triggered_sem,'b',1);
 box off
