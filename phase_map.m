@@ -26,7 +26,7 @@ function [phase_map] = phase_map(signal_data, phase_bins, amplitude_freq_bins, p
 %   amplitude_freq_bins:    Number of co-modulogram bins for amplitude
 %                           values
 %   phase_freq_bins:        Number of co-modulogram bins for phase values
-%   plot:                   0 if plot, 1 if no plot
+%   plot:                   1 if plot, 0 if no plot
 
 %Output:
 %   phase_map:          Co-modulogram of normalized amplitude values across phase bins
@@ -67,7 +67,7 @@ end
 % Average co-modulogram values across all frequencies for phase
 phase_map = mean(phase_map,3);
 
-if plot == 0
+if plot == 1
 figure()
 pcolor(M.PhaseAxis,amplitude_highpass,phase_map)
 colormap(jet)
