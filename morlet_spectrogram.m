@@ -7,7 +7,7 @@ function [tf, tfZ, tf_smooth] = morlet_spectrogram(sample, srate, lowpass, highp
 %       srate:      Sampling rate (Hz)
 %       lowpass:    fmin
 %       highpass:   fmax
-%       plot:       0 if plot, 1 if no plot
+%       plot:       1 if plot, 0 if no plot
 
 %   Output:
 %       tfZ:        n frex x n samples matrix of z-scored wavelet amplitude
@@ -48,7 +48,7 @@ f = f./sum(f(:));
 
 tf_smooth = conv2(tfZ,f,'same');
 
-if plot == 0
+if plot == 1
 figure()
 PowerPlot = tf;
 PowerPlot = fliplr(PowerPlot);
