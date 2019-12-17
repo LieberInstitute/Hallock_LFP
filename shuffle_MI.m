@@ -29,7 +29,7 @@ function [mu, sigma, MI, z, p] = shuffle_MI(signal_data, phase_bins, plot)
 %                           within an oscillatory cycle, but should only be used
 %                           when the phase highpass is < 60 Hz
 %   phase_bins:             Number of phase bins
-%   plot:                   0 if plot, 1 if no plot
+%   plot:                   1 if plot, 0 if no plot
 %   
 
 % Output:
@@ -92,7 +92,7 @@ z = bsxfun(@rdivide, bsxfun(@minus, M.MI, mu), sigma);
 
 [h p] = ztest(M.MI,mu,sigma);
 
-if plot == 0
+if plot == 1
 figure()
 hist(ZMI_Shuffled,phase_bins)
 hold on
